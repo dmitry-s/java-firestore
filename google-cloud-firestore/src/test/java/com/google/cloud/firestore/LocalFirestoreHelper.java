@@ -897,6 +897,13 @@ public final class LocalFirestoreHelper {
     return fromJsonString(json.replace("'", "\""));
   }
 
+  public static String fullPath(DocumentReference ref, FirestoreOptions options) {
+    return ResourcePath.create(
+            DatabaseRootName.of(options.getProjectId(), options.getDatabaseId()),
+            ImmutableList.<String>copyOf(ref.getPath().split("/")))
+        .toString();
+  }
+
   /**
    * Naive implementation to read bundle buffers into a list of JSON strings.
    *
